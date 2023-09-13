@@ -36,7 +36,7 @@ async def off(interaction: Interaction):
     name="setall", description="Sets all the lights to the specified color"
 )
 async def setall(interaction: Interaction, color: str):
-    lights_controller.setall(color.color(color))
+    lights_controller.setall(int(color))
     await interaction.response.send_message(f"Set all lights to {color}")
 
 
