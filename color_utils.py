@@ -3,7 +3,7 @@ import webcolors
 
 def parse_color(x: str) -> int:
     x = x.lower()
-    
+
     hex_prefixes = ["0x", "#"]
     for prefix in hex_prefixes:
         x = x.removeprefix(prefix)
