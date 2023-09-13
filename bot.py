@@ -7,12 +7,9 @@ from lights_controller import lights
 from nextcord import Interaction
 from nextcord.ext import commands
 
-load_dotenv()
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+print("Loading Bot")
 
-intents = nextcord.Intents.default()
-
-bot = commands.Bot(intents=intents)
+bot = commands.Bot(intents=nextcord.Intents.default())
 
 
 @bot.event
@@ -22,7 +19,7 @@ async def on_ready():
 
 @bot.slash_command(name="ping", description="Replies with the bot's ping to the server")
 async def ping(interaction: Interaction):
-    await interaction.response.send_message(f"Ping: {round(bot.latency * 1000)}ms")
+    await interaction.response.send_message(f"Ping: `{round(bot.latency * 1000)} ms`")
 
 
 @bot.slash_command(name="off", description="Turns the lights off")
@@ -46,4 +43,5 @@ async def setall(interaction: Interaction, color: str):
         await interaction.response.send_message(f"Set all lights to `{color}`")
 
 
-bot.run(BOT_TOKEN)
+load_dotenv()
+bot.run(os.getenv("BOT_TOKEN"))
