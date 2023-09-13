@@ -46,31 +46,35 @@ async def setall(interaction: Interaction, color: str):
 @bot.slash_command(
     name="setrange", description="Sets all lights in the range to the specified color"
 )
-async def setrange(interaction: Interaction, start: int, end: int, color: str):
+async def setrange(interaction: Interaction, start: int, stop: int, color: str):
     try:
         parsed_color = color_utils.parse_color(color)
     except ValueError:
         await interaction.response.send_message(f"`{color}` is an invalid input")
     else:
-        lights[start:end] = parsed_color
+        lights[start:stop] = parsed_color
         lights.update()
-        await interaction.response.send_message(f"Set all lights to `{color}`")
+        await interaction.response.send_message(
+            f"Set lights in range `{start}` to `{stop}` to `{color}`"
+        )
 
 
 @bot.slash_command(
     name="setslice", description="Sets all lights in the slice to the specified color"
 )
 async def setslice(
-    interaction: Interaction, start: int, end: int, step: int, color: str
+    interaction: Interaction, start: int, stop: int, step: int, color: str
 ):
     try:
         parsed_color = color_utils.parse_color(color)
     except ValueError:
         await interaction.response.send_message(f"`{color}` is an invalid input")
     else:
-        lights[start:end:step] = parsed_color
+        lights[start:stop:step] = parsed_color
         lights.update()
-        await interaction.response.send_message(f"Set all lights to `{color}`")
+        await interaction.response.send_message(
+            f"Set lights in slice `{start}` to `{stop}` with step size `{step}`to `{color}`"
+        )
 
 
 load_dotenv()
