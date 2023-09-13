@@ -1,6 +1,6 @@
 import webcolors
 
-def color(x):
+def parse_color(x):
     result = 0
 
     try:

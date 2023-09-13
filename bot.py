@@ -4,7 +4,7 @@ from nextcord.ext import commands
 from dotenv import load_dotenv
 import os
 import lights_controller
-import color
+import color_utils
 
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -36,7 +36,7 @@ async def off(interaction: Interaction):
     name="setall", description="Sets all the lights to the specified color"
 )
 async def setall(interaction: Interaction, color: str):
-    lights_controller.setall(int(color))
+    lights_controller.setall(color_utils.parse_color(color))
     await interaction.response.send_message(f"Set all lights to {color}")
 
 
