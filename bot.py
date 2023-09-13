@@ -11,28 +11,28 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 intents = nextcord.Intents.default()
 
-client = commands.Bot(intents=intents)
+bot = commands.Bot(intents=intents)
 
 
-@client.event
+@bot.event
 async def on_ready():
     print("Bot is ready")
 
 
-@client.slash_command(
+@bot.slash_command(
     name="ping", description="Replies with the bot's ping to the server"
 )
 async def ping(interaction: Interaction):
-    await interaction.response.send_message(f"Ping: {round(client.latency*1000)}ms")
+    await interaction.response.send_message(f"Ping: {round(bot.latency * 1000)}ms")
 
 
-@client.slash_command(name="off", description="Turns the lights off")
+@bot.slash_command(name="off", description="Turns the lights off")
 async def off(interaction: Interaction):
     lights_controller.off()
     await interaction.response.send_message("Turned the lights off")
 
 
-@client.slash_command(
+@bot.slash_command(
     name="setall", description="Sets all the lights to the specified color"
 )
 async def setall(interaction: Interaction, color: str):
@@ -40,4 +40,4 @@ async def setall(interaction: Interaction, color: str):
     await interaction.response.send_message(f"Set all lights to {color}")
 
 
-client.run(BOT_TOKEN)
+bot.run(BOT_TOKEN)
