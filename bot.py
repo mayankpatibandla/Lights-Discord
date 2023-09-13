@@ -28,7 +28,7 @@ async def ping(interaction: Interaction):
 
 @bot.slash_command(name="off", description="Turns the lights off")
 async def off(interaction: Interaction):
-    lights_controller.off()
+    await lights_controller.off()
     await interaction.response.send_message("Turned the lights off")
 
 
@@ -36,8 +36,13 @@ async def off(interaction: Interaction):
     name="setall", description="Sets all the lights to the specified color"
 )
 async def setall(interaction: Interaction, color: str):
-    lights_controller.setall(color_utils.parse_color(color))
-    await interaction.response.send_message(f"Set all lights to {color}")
+    try:
+        parsed_color = await color_utils.parse_color(color)
+    except ValueError:
+        await interaction.response.send_message(f"{color} is an invalid input")
+    else:
+        await lights_controller.setall(parsed_color)
+        await interaction.response.send_message(f"Set all lights to {color}")
 
 
 bot.run(BOT_TOKEN)

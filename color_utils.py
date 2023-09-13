@@ -1,11 +1,13 @@
 import webcolors
 
-def parse_color(x):
-    result = 0
+def parse_color(x: str) -> int:
+    x = x.lower()
+    hex_prefixes = ["0x", "#"]
+
+    for prefix in hex_prefixes:
+        x = x.removeprefix(prefix)
 
     try:
-        result = int(x, 16)
+        return int(x, 16)
     except ValueError:
-        result = int(webcolors.name_to_hex(x)[1:], 16)
-
-    return result
+        return int(webcolors.name_to_hex(x)[1:], 16)
