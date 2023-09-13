@@ -37,7 +37,7 @@ async def off(interaction: Interaction):
 )
 async def setall(interaction: Interaction, color: str):
     try:
-        parsed_color = await color_utils.parse_color(color)
+        parsed_color = color_utils.parse_color(color)
     except ValueError:
         await interaction.response.send_message(f"{color} is an invalid input")
     else:
