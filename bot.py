@@ -1,10 +1,11 @@
+import os
+
+import color_utils
+import lights_controller
 import nextcord
+from dotenv import load_dotenv
 from nextcord import Interaction
 from nextcord.ext import commands
-from dotenv import load_dotenv
-import os
-import lights_controller
-import color_utils
 
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -19,9 +20,7 @@ async def on_ready():
     print("Bot is ready")
 
 
-@bot.slash_command(
-    name="ping", description="Replies with the bot's ping to the server"
-)
+@bot.slash_command(name="ping", description="Replies with the bot's ping to the server")
 async def ping(interaction: Interaction):
     await interaction.response.send_message(f"Ping: {round(bot.latency * 1000)}ms")
 

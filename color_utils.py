@@ -1,5 +1,6 @@
 import webcolors
 
+
 def parse_color(x: str) -> int:
     x = x.lower()
     hex_prefixes = ["0x", "#"]
