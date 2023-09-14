@@ -31,7 +31,7 @@ async def slash_command_off(interaction: Interaction):
 @bot.slash_command(
     name="set", description="Sets the specified light to the specified color"
 )
-async def slash_command_set(interaction: Interaction, index: int, color: str):
+async def slash_command_set(interaction: Interaction, index: int = 0, color: str = "0"):
     try:
         parsed_color = color_utils.parse_color(color)
     except ValueError:
@@ -47,7 +47,7 @@ async def slash_command_set(interaction: Interaction, index: int, color: str):
 @bot.slash_command(
     name="setall", description="Sets all the lights to the specified color"
 )
-async def slash_command_setall(interaction: Interaction, color: str):
+async def slash_command_setall(interaction: Interaction, color: str = "0"):
     try:
         parsed_color = color_utils.parse_color(color)
     except ValueError:
@@ -62,7 +62,7 @@ async def slash_command_setall(interaction: Interaction, color: str):
     name="setrange", description="Sets all lights in the range to the specified color"
 )
 async def slash_command_setrange(
-    interaction: Interaction, start: int, stop: int, color: str
+    interaction: Interaction, start: int = 0, stop: int = len(lights), color: str = "0"
 ):
     try:
         parsed_color = color_utils.parse_color(color)
@@ -80,7 +80,11 @@ async def slash_command_setrange(
     name="setslice", description="Sets all lights in the slice to the specified color"
 )
 async def slash_command_setslice(
-    interaction: Interaction, start: int, stop: int, step: int, color: str
+    interaction: Interaction,
+    start: int = 0,
+    stop: int = len(lights),
+    step: int = 1,
+    color: str = "0",
 ):
     try:
         parsed_color = color_utils.parse_color(color)
