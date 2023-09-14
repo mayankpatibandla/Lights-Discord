@@ -40,7 +40,7 @@ async def set(interaction: Interaction, index: int, color: str):
         lights[index] = parsed_color
         lights.update()
         await interaction.response.send_message(
-            f"Set lights in range `{start}` to `{stop}` to `{color}`"
+            f"Set light at index `{index}` to `{color}`"
         )
 
 
