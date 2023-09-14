@@ -17,12 +17,12 @@ async def on_ready():
 
 
 @bot.slash_command(name="ping", description="Replies with the bot's ping to the server")
-async def ping(interaction: Interaction):
+async def slash_command_ping(interaction: Interaction):
     await interaction.response.send_message(f"Ping: `{round(bot.latency * 1000)} ms`")
 
 
 @bot.slash_command(name="off", description="Turns the lights off")
-async def off(interaction: Interaction):
+async def slash_command_off(interaction: Interaction):
     lights[:] = 0
     lights.update()
     await interaction.response.send_message("Turned the lights off")
@@ -31,7 +31,7 @@ async def off(interaction: Interaction):
 @bot.slash_command(
     name="set", description="Sets the specified light to the specified color"
 )
-async def set(interaction: Interaction, index: int, color: str):
+async def slash_command_set(interaction: Interaction, index: int, color: str):
     try:
         parsed_color = color_utils.parse_color(color)
     except ValueError:
@@ -47,7 +47,7 @@ async def set(interaction: Interaction, index: int, color: str):
 @bot.slash_command(
     name="setall", description="Sets all the lights to the specified color"
 )
-async def setall(interaction: Interaction, color: str):
+async def slash_command_setall(interaction: Interaction, color: str):
     try:
         parsed_color = color_utils.parse_color(color)
     except ValueError:
@@ -61,7 +61,9 @@ async def setall(interaction: Interaction, color: str):
 @bot.slash_command(
     name="setrange", description="Sets all lights in the range to the specified color"
 )
-async def setrange(interaction: Interaction, start: int, stop: int, color: str):
+async def slash_command_setrange(
+    interaction: Interaction, start: int, stop: int, color: str
+):
     try:
         parsed_color = color_utils.parse_color(color)
     except ValueError:
@@ -77,7 +79,7 @@ async def setrange(interaction: Interaction, start: int, stop: int, color: str):
 @bot.slash_command(
     name="setslice", description="Sets all lights in the slice to the specified color"
 )
-async def setslice(
+async def slash_command_setslice(
     interaction: Interaction, start: int, stop: int, step: int, color: str
 ):
     try:
