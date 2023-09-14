@@ -1,7 +1,6 @@
-import os
-
 import color_utils
 import nextcord
+import os
 from dotenv import load_dotenv
 from lights_controller import lights
 from nextcord import Interaction
@@ -27,6 +26,22 @@ async def off(interaction: Interaction):
     lights[:] = 0
     lights.update()
     await interaction.response.send_message("Turned the lights off")
+
+
+@bot.slash_command(
+    name="set", description="Sets the specified light to the specified color"
+)
+async def set(interaction: Interaction, index: int, color: str):
+    try:
+        parsed_color = color_utils.parse_color(color)
+    except ValueError:
+        await interaction.response.send_message(f"`{color}` is an invalid input")
+    else:
+        lights[index] = parsed_color
+        lights.update()
+        await interaction.response.send_message(
+            f"Set lights in range `{start}` to `{stop}` to `{color}`"
+        )
 
 
 @bot.slash_command(
