@@ -73,7 +73,7 @@ async def setslice(
         lights[start:stop:step] = parsed_color
         lights.update()
         await interaction.response.send_message(
-            f"Set lights in slice `{start}` to `{stop}` with step size `{step}`to `{color}`"
+            f"Set lights in slice `{start}` to `{stop}` with step size `{step}` to `{color}`"
         )
 
 
