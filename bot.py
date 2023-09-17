@@ -34,8 +34,8 @@ async def slash_command_off(interaction: Interaction):
 async def slash_command_set(interaction: Interaction, index: int = 0, color: str = "0"):
     try:
         parsed_color = color_utils.parse_color(color)
-    except ValueError:
-        await interaction.response.send_message(f"`{color}` is an invalid input")
+    except ValueError as e:
+        await interaction.response.send_message(str(e))
     else:
         lights[index] = parsed_color
         lights.update()
@@ -50,8 +50,8 @@ async def slash_command_set(interaction: Interaction, index: int = 0, color: str
 async def slash_command_setall(interaction: Interaction, color: str = "0"):
     try:
         parsed_color = color_utils.parse_color(color)
-    except ValueError:
-        await interaction.response.send_message(f"`{color}` is an invalid input")
+    except ValueError as e:
+        await interaction.response.send_message(str(e))
     else:
         lights[:] = parsed_color
         lights.update()
@@ -66,8 +66,8 @@ async def slash_command_setrange(
 ):
     try:
         parsed_color = color_utils.parse_color(color)
-    except ValueError:
-        await interaction.response.send_message(f"`{color}` is an invalid input")
+    except ValueError as e:
+        await interaction.response.send_message(str(e))
     else:
         lights[start:stop] = parsed_color
         lights.update()
@@ -88,8 +88,8 @@ async def slash_command_setslice(
 ):
     try:
         parsed_color = color_utils.parse_color(color)
-    except ValueError:
-        await interaction.response.send_message(f"`{color}` is an invalid input")
+    except ValueError as e:
+        await interaction.response.send_message(str(e))
     else:
         lights[start:stop:step] = parsed_color
         lights.update()
