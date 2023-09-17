@@ -1,3 +1,4 @@
+import json
 import webcolors
 
 
@@ -11,4 +12,12 @@ def parse_color(x: str) -> int:
     try:
         return int(x, 16)
     except ValueError:
-        return int(webcolors.name_to_hex(x)[1:], 16)
+        try:
+            return int(webcolors.name_to_hex(x)[1:], 16)
+        except ValueError:
+            with open("colors.json") as f:
+                data = json.load(f)
+                try:
+                    return int(data[x], 16)
+                except KeyError:
+                    raise ValueError(f"`{x}` is an invalid input")
