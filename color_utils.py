@@ -19,5 +19,5 @@ def parse_color(x: str) -> int:
                 data = json.load(f)
                 try:
                     return int(data[x], 16)
-                except KeyError:
-                    raise ValueError(f"`{x}` is an invalid input")
+                except KeyError as exc:
+                    raise ValueError(f"`{x}` is an invalid input") from exc
