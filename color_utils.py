@@ -1,6 +1,9 @@
 import json
 import webcolors
 
+with open("colors.json") as f:
+    colors_data = json.load(f)
+
 
 def parse_color(x: str) -> int:
     x = x.lower()
@@ -15,9 +18,7 @@ def parse_color(x: str) -> int:
         try:
             return int(webcolors.name_to_hex(x)[1:], 16)
         except ValueError:
-            with open("colors.json") as f:
-                data = json.load(f)
-                try:
-                    return int(data[x], 16)
-                except KeyError as exc:
-                    raise ValueError(f"`{x}` is an invalid input") from exc
+            try:
+                return int(colors_data[x], 16)
+            except KeyError as exc:
+                raise ValueError(f"`{x}` is an invalid input") from exc
