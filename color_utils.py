@@ -7,11 +7,8 @@ with open("colors.json", encoding="utf-8") as f:
 
 
 def parse_color(color: str) -> int:
-    color = color.lower()
-
-    hex_prefixes = ["0x", "#"]
-    for prefix in hex_prefixes:
-        color = color.removeprefix(prefix)
+    for hex_prefix in ["0x", "#"]:
+        color = color.lower().removeprefix(hex_prefix)
 
     try:
         return int(color, 16)
