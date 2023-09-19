@@ -3,7 +3,6 @@
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
   },
-  "python.formatting.provider": "none",
-  "pylint.args": ["--max-line-length=120"],
+  "pylint.args": ["--max-line-length=120", "--disable=C0114,C0115,C0116"],
   "editor.rulers": [120]
 }
