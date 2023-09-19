@@ -17,13 +17,9 @@ async def on_ready():
     print("Bot is ready")
 
 
-@bot.slash_command(
-    name="ping", description="Replies with the bot's ping to the server"
-)
+@bot.slash_command(name="ping", description="Replies with the bot's ping to the server")
 async def slash_command_ping(interaction: Interaction):
-    await interaction.response.send_message(
-        f"Ping: `{round(bot.latency * 1000)} ms`"
-    )
+    await interaction.response.send_message(f"Ping: `{round(bot.latency * 1000)} ms`")
 
 
 @bot.slash_command(name="off", description="Turns the lights off")
@@ -33,12 +29,8 @@ async def slash_command_off(interaction: Interaction):
     await interaction.response.send_message("Turned the lights off")
 
 
-@bot.slash_command(
-    name="set", description="Sets the specified light to the specified color"
-)
-async def slash_command_set(
-    interaction: Interaction, index: int = 0, color: str = "0"
-):
+@bot.slash_command(name="set", description="Sets the specified light to the specified color")
+async def slash_command_set(interaction: Interaction, index: int = 0, color: str = "0"):
     try:
         parsed_color = parse_color(color)
     except ValueError as err:
@@ -46,14 +38,10 @@ async def slash_command_set(
     else:
         lights[index] = parsed_color
         lights.update()
-        await interaction.response.send_message(
-            f"Set light at index `{index}` to `{color}`"
-        )
+        await interaction.response.send_message(f"Set light at index `{index}` to `{color}`")
 
 
-@bot.slash_command(
-    name="setall", description="Sets all the lights to the specified color"
-)
+@bot.slash_command(name="setall", description="Sets all the lights to the specified color")
 async def slash_command_setall(interaction: Interaction, color: str = "0"):
     try:
         parsed_color = parse_color(color)
@@ -82,9 +70,7 @@ async def slash_command_setrange(
     else:
         lights[start:stop] = parsed_color
         lights.update()
-        await interaction.response.send_message(
-            f"Set lights in range `{start}` to `{stop}` to `{color}`"
-        )
+        await interaction.response.send_message(f"Set lights in range `{start}` to `{stop}` to `{color}`")
 
 
 @bot.slash_command(
