@@ -1,4 +1,5 @@
 import json
+
 import webcolors
 
 with open("colors.json", encoding="utf-8") as f:

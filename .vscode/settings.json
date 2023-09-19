@@ -1,8 +1,12 @@
 {
   "python.analysis.typeCheckingMode": "basic",
   "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter"
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
   },
+  "isort.args": ["--profile", "black"],
   "pylint.args": ["--max-line-length=120", "--disable=C0114,C0115,C0116"],
   "editor.rulers": [120]
 }

@@ -1,11 +1,11 @@
 import os
 
 import nextcord
+from dotenv import load_dotenv
+from lights_controller import lights
 from nextcord import Interaction
 from nextcord.ext import commands
-from dotenv import load_dotenv
 
-from lights_controller import lights
 from color_utils import parse_color
 
 print("Loading Bot")
