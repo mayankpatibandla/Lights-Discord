@@ -1,15 +1,14 @@
 import os
 
-import nextcord
 from dotenv import load_dotenv
 from lights_controller import lights
-from nextcord import Interaction
+from nextcord import Intents, Interaction
 from nextcord.ext import commands
 
 from color_utils import parse_color
 
 print("Loading Bot")
-bot = commands.Bot(intents=nextcord.Intents.default())
+bot = commands.Bot(intents=Intents.default())
 
 
 @bot.event
