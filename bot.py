@@ -95,5 +95,18 @@ async def slash_command_setslice(
         )
 
 
+@bot.slash_command(
+    name="brightness",
+    description="Sets the brightness of the lights",
+)
+async def slash_command_brightness(
+    interaction: Interaction,
+    brightness: int = 255,
+):
+    lights.set_brightness(brightness)
+    lights.update()
+    await interaction.response.send_message(f"Set brightness to `{brightness}`")
+
+
 load_dotenv()
 bot.run(os.getenv("BOT_TOKEN"))
