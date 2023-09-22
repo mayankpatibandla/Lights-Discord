@@ -50,7 +50,12 @@ async def slash_command_set(
     except ValueError as err:
         await interaction.response.send_message(str(err))
     else:
-        lights[start:stop:step] = parsed_color
+        try:
+            lights[start:stop:step] = parsed_color
+        except ValueError:
+            await interaction.response.send_message(
+                f"`{start}` to `{stop}` with step size `{step}` is an invalid slice"
+            )
         lights.update()
         await interaction.response.send_message(
             f"Set lights `{start}` to `{stop}` with step size `{step}` to `{color}`"
