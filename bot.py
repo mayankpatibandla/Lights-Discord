@@ -101,9 +101,13 @@ async def slash_command_setslice(
 )
 async def slash_command_brightness(
     interaction: Interaction,
-    brightness: int = 255,
+    brightness: str = "0xFF",
 ):
-    lights.set_brightness(brightness)
+    if "%" in brightness:
+        parsed_brightness = int(float(brightness[:-1]) / 100 * 0xFF)
+    else:
+        parsed_brightness = int(brightness, 0)
+    lights.brightness(parsed_brightness)
     lights.update()
     await interaction.response.send_message(f"Set brightness to `{brightness}`")
 
