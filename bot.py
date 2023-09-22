@@ -56,10 +56,11 @@ async def slash_command_set(
             await interaction.response.send_message(
                 f"`{start}` to `{stop}` with step size `{step}` is an invalid slice"
             )
-        lights.update()
-        await interaction.response.send_message(
-            f"Set lights `{start}` to `{stop}` with step size `{step}` to `{color}`"
-        )
+        else:
+            lights.update()
+            await interaction.response.send_message(
+                f"Set lights `{start}` to `{stop}` with step size `{step}` to `{color}`"
+            )
 
 
 @bot.slash_command(
