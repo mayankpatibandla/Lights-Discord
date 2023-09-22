@@ -16,20 +16,33 @@ async def on_ready():
     print("Bot is ready")
 
 
-@bot.slash_command(name="ping", description="Replies with the bot's ping to the server")
+@bot.slash_command(
+    name="ping",
+    description="Replies with the bot's ping to the server",
+)
 async def slash_command_ping(interaction: Interaction):
     await interaction.response.send_message(f"Ping: `{round(bot.latency * 1000)} ms`")
 
 
-@bot.slash_command(name="off", description="Turns the lights off")
+@bot.slash_command(
+    name="off",
+    description="Turns the lights off",
+)
 async def slash_command_off(interaction: Interaction):
     lights[:] = 0
     lights.update()
     await interaction.response.send_message("Turned the lights off")
 
 
-@bot.slash_command(name="set", description="Sets the specified light to the specified color")
-async def slash_command_set(interaction: Interaction, index: int = 0, color: str = "0"):
+@bot.slash_command(
+    name="setindex",
+    description="Sets the specified light to the specified color",
+)
+async def slash_command_setindex(
+    interaction: Interaction,
+    index: int = 0,
+    color: str = "0",
+):
     try:
         parsed_color = parse_color(color)
     except ValueError as err:
@@ -40,48 +53,16 @@ async def slash_command_set(interaction: Interaction, index: int = 0, color: str
         await interaction.response.send_message(f"Set light at index `{index}` to `{color}`")
 
 
-@bot.slash_command(name="setall", description="Sets all the lights to the specified color")
-async def slash_command_setall(interaction: Interaction, color: str = "0"):
-    try:
-        parsed_color = parse_color(color)
-    except ValueError as err:
-        await interaction.response.send_message(str(err))
-    else:
-        lights[:] = parsed_color
-        lights.update()
-        await interaction.response.send_message(f"Set all lights to `{color}`")
-
-
 @bot.slash_command(
-    name="setrange",
-    description="Sets all lights in the range to the specified color",
-)
-async def slash_command_setrange(
-    interaction: Interaction,
-    start: int = 0,
-    stop: int = len(lights),
-    color: str = "0",
-):
-    try:
-        parsed_color = parse_color(color)
-    except ValueError as err:
-        await interaction.response.send_message(str(err))
-    else:
-        lights[start:stop] = parsed_color
-        lights.update()
-        await interaction.response.send_message(f"Set lights in range `{start}` to `{stop}` to `{color}`")
-
-
-@bot.slash_command(
-    name="setslice",
+    name="set",
     description="Sets all lights in the slice to the specified color",
 )
-async def slash_command_setslice(
+async def slash_command_set(
     interaction: Interaction,
+    color: str = "0",
     start: int = 0,
     stop: int = len(lights),
     step: int = 1,
-    color: str = "0",
 ):
     try:
         parsed_color = parse_color(color)
@@ -91,7 +72,7 @@ async def slash_command_setslice(
         lights[start:stop:step] = parsed_color
         lights.update()
         await interaction.response.send_message(
-            f"Set lights in slice `{start}` to `{stop}` with step size `{step}` to `{color}`"
+            f"Set lights `{start}` to `{stop}` with step size `{step}` to `{color}`"
         )
 
 
@@ -118,7 +99,10 @@ async def slash_command_brightness(
         await interaction.response.send_message(f"Set brightness to `{brightness}`")
 
 
-@bot.slash_command(name="update", description="Updates the lights")
+@bot.slash_command(
+    name="update",
+    description="Updates the lights",
+)
 async def slash_command_update(interaction: Interaction):
     lights.update()
     await interaction.response.send_message("Updated lights")
