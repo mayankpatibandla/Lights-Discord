@@ -35,25 +35,6 @@ async def slash_command_off(interaction: Interaction):
 
 
 @bot.slash_command(
-    name="setindex",
-    description="Sets the specified light to the specified color",
-)
-async def slash_command_setindex(
-    interaction: Interaction,
-    color: str,
-    index: int = 0,
-):
-    try:
-        parsed_color = parse_color(color)
-    except ValueError as err:
-        await interaction.response.send_message(str(err))
-    else:
-        lights[index] = parsed_color
-        lights.update()
-        await interaction.response.send_message(f"Set light at index `{index}` to `{color}`")
-
-
-@bot.slash_command(
     name="set",
     description="Sets all lights in the slice to the specified color",
 )
