@@ -40,8 +40,8 @@ async def slash_command_off(interaction: Interaction):
 )
 async def slash_command_setindex(
     interaction: Interaction,
+    color: str,
     index: int = 0,
-    color: str = "0",
 ):
     try:
         parsed_color = parse_color(color)
@@ -59,7 +59,7 @@ async def slash_command_setindex(
 )
 async def slash_command_set(
     interaction: Interaction,
-    color: str = "0",
+    color: str,
     start: int = 0,
     stop: int = len(lights),
     step: int = 1,
