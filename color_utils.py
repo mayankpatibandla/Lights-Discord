@@ -19,4 +19,4 @@ def parse_color(color: str) -> int:
             try:
                 return int(colors_data[color], 16)
             except KeyError as err:
-                raise ValueError(f"`{color}` is an invalid input") from err
+                raise ValueError(f"`{color}` is an invalid color") from err

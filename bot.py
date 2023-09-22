@@ -73,7 +73,7 @@ async def slash_command_brightness(
         else:
             parsed_brightness = int(brightness, 0)
     except ValueError:
-        await interaction.response.send_message(f"`{brightness}` is an invalid input")
+        await interaction.response.send_message(f"`{brightness}` is an invalid brightness")
     else:
         lights.brightness(parsed_brightness)
         lights.update()
