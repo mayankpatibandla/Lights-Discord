@@ -105,6 +105,8 @@ async def slash_command_brightness(
 ):
     if "%" in brightness:
         parsed_brightness = int(float(brightness[:-1]) / 100 * 0xFF)
+    if "." in brightness:
+        parsed_brightness = int(float(brightness) * 0xFF)
     else:
         parsed_brightness = int(brightness, 0)
     lights.brightness(parsed_brightness)
