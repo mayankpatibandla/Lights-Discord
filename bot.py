@@ -108,6 +108,7 @@ async def slash_command_brightness(
     else:
         parsed_brightness = int(brightness, 0)
     lights.brightness(parsed_brightness)
+    lights.update()
     await interaction.response.send_message(f"Set brightness to `{brightness}`")
 
 
