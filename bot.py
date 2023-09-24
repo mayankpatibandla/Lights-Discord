@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-from lights_controller import lights
+from lights_controller import lights, save_pattern
 from nextcord import Intents, Interaction
 from nextcord.ext import commands
 
@@ -84,6 +84,15 @@ async def slash_command_brightness(
         lights.brightness(parsed_brightness)
         lights.update()
         await interaction.response.send_message(f"Set brightness to `{brightness}`")
+
+
+@bot.slash_command(
+    name="save",
+    description="Saves the current light configuration",
+)
+async def slash_command_save(interaction: Interaction, name: str):
+    save_pattern(name, lights[:])
+    await interaction.response.send_message(f"Saved light configuration as `{name}`")
 
 
 load_dotenv()
