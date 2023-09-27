@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-from lights_controller import lights, save_pattern
+from lights_controller import lights, load_color, load_pattern, save_color, save_pattern
 from nextcord import Intents, Interaction
 from nextcord.ext import commands
 
