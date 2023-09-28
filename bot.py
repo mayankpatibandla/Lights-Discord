@@ -91,7 +91,7 @@ async def slash_command_brightness(
     description="Saves the current light configuration",
 )
 async def slash_command_save(interaction: Interaction, name: str):
-    save_pattern(name, [hex(x)[2:] for x in lights[:]])
+    save_pattern(name, [hex(x)[2:].zfill(6) for x in lights[:]])
     await interaction.response.send_message(f"Saved light configuration as `{name}`")
 
 @bot.slash_command(name="load", description="Loads a saved light configuration",)
