@@ -1,5 +1,6 @@
 import json
 
+import lights_controller as lc
 import webcolors
 
 with open("colors.json", encoding="utf-8") as f:
@@ -7,19 +8,26 @@ with open("colors.json", encoding="utf-8") as f:
 
 
 def parse_color(color: str) -> int:
-    for hex_prefix in ["0x", "#"]:
-        color = color.lower().removeprefix(hex_prefix)
+    color = color.lower()
 
     try:
-        return int(color, 16)
-    except ValueError:
+        return int(lc.load_color(color), 16)
+    except KeyError:
         try:
-            return int(webcolors.name_to_hex(color)[1:], 16)
+            return int(color, 0)
         except ValueError:
+            for hex_prefix in ["0x", "#"]:
+                color = color.removeprefix(hex_prefix)
             try:
-                return int(colors_data[color], 16)
-            except KeyError as err:
-                raise ValueError(f"`{color}` is an invalid color") from err
+                return int(color, 16)
+            except ValueError:
+                try:
+                    return int(webcolors.name_to_hex(color)[1:], 16)
+                except ValueError:
+                    try:
+                        return int(colors_data[color], 16)
+                    except KeyError as err:
+                        raise ValueError(f"`{color}` is an invalid color") from err
 
 
 def format_color(color: int) -> str:
