@@ -105,6 +105,20 @@ async def slash_command_savecolor(interaction: Interaction, name: str, color: st
 
 
 @bot.slash_command(
+    name="deletecolor",
+    description="Deletes the specified color",
+)
+async def slash_command_deletecolor(interaction: Interaction, name: str):
+    name = name.lower()
+    try:
+        lc.delete_color(name)
+    except KeyError:
+        await interaction.response.send_message(f"Color `{name}` not found")
+    else:
+        await interaction.response.send_message(f"Deleted color `{name}`")
+
+
+@bot.slash_command(
     name="save",
     description="Saves the current pattern",
 )
@@ -112,6 +126,20 @@ async def slash_command_save(interaction: Interaction, name: str):
     name = name.lower()
     lc.save_pattern(name, [format_color(x) for x in lc.lights[:]])
     await interaction.response.send_message(f"Saved current pattern as `{name}`")
+
+
+@bot.slash_command(
+    name="delete",
+    description="Deletes the specified pattern",
+)
+async def slash_command_delete(interaction: Interaction, name: str):
+    name = name.lower()
+    try:
+        lc.delete_pattern(name)
+    except KeyError:
+        await interaction.response.send_message(f"Pattern `{name}` not found")
+    else:
+        await interaction.response.send_message(f"Deleted pattern `{name}`")
 
 
 @bot.slash_command(
