@@ -97,7 +97,7 @@ async def slash_command_savecolor(interaction: Interaction, name: str, color: st
         await interaction.response.send_message(str(err))
     else:
         lc.save_color(name, format_color(parsed_color))
-        await interaction.response.send_message(f"Saved color `{name}` as `{color}`")
+        await interaction.response.send_message(f"Saved color `{color}` as `{name}`")
 
 
 @bot.slash_command(
