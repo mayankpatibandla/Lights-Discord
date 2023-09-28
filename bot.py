@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from nextcord import Intents, Interaction
 from nextcord.ext import commands
 
-from color_utils import parse_color
+from color_utils import format_color, parse_color
 
 print("Loading Bot")
 bot = commands.Bot(intents=Intents.default())
@@ -96,7 +96,7 @@ async def slash_command_savecolor(interaction: Interaction, name: str, color: st
     except ValueError as err:
         await interaction.response.send_message(str(err))
     else:
-        lc.save_color(name, str(parsed_color))
+        lc.save_color(name, format_color(parsed_color))
         await interaction.response.send_message(f"Saved color `{name}` as `{color}`")
 
 
@@ -105,7 +105,7 @@ async def slash_command_savecolor(interaction: Interaction, name: str, color: st
     description="Saves the current pattern",
 )
 async def slash_command_save(interaction: Interaction, name: str):
-    lc.save_pattern(name, [hex(x)[2:].zfill(6) for x in lc.lights[:]])
+    lc.save_pattern(name, [format_color(x) for x in lc.lights[:]])
     await interaction.response.send_message(f"Saved current pattern as `{name}`")
 
 

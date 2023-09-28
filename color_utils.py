@@ -20,3 +20,7 @@ def parse_color(color: str) -> int:
                 return int(colors_data[color], 16)
             except KeyError as err:
                 raise ValueError(f"`{color}` is an invalid color") from err
+
+
+def format_color(color: int) -> str:
+    return hex(color)[2:].zfill(6)
