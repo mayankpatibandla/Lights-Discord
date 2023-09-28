@@ -135,8 +135,8 @@ async def slash_command_load(interaction: Interaction, name: str):
     description="Lists all saved patterns and colors",
 )
 async def slash_command_list(interaction: Interaction):
-    colors = [str(x) for x in lc.list_colors()]
-    patterns = [str(x) for x in lc.list_patterns()]
+    colors = [str(x) for x in lc.list_colors()[0]]
+    patterns = [str(x) for x in lc.list_patterns()[0]]
     await interaction.response.send_message(f"Colors: `{', '.join(colors)}`\n\nPatterns: `{', '.join(patterns)}`")
 
 
