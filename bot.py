@@ -73,13 +73,15 @@ async def slash_command_brightness(
 ):
     try:
         if "%" in brightness:
+            print("%")
             parsed_brightness = int(float(brightness[:-1]) / 100 * 0xFF)
+            print(parsed_brightness)
         if "." in brightness:
             parsed_brightness = int(float(brightness) * 0xFF)
         else:
             parsed_brightness = int(brightness, 0)
-    except ValueError:
-        await interaction.response.send_message(f"`{brightness}` is an invalid brightness")
+    except ValueError as err:
+        await interaction.response.send_message(f"`{brightness}` is an invalid brightness {str(err)}")
     else:
         lights.brightness(parsed_brightness)
         lights.update()
