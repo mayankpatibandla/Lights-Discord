@@ -73,19 +73,17 @@ async def slash_command_brightness(
 ):
     try:
         if "%" in brightness:
-            print("%")
             parsed_brightness = int(float(brightness[:-1]) / 100 * 0xFF)
-            print(parsed_brightness)
         elif "." in brightness:
             parsed_brightness = int(float(brightness) * 0xFF)
         else:
             parsed_brightness = int(brightness, 0)
-    except ValueError as err:
-        await interaction.response.send_message(f"`{brightness}` is an invalid brightness {str(err)}")
+    except ValueError:
+        await interaction.response.send_message(f"`{brightness}` is an invalid brightness")
     else:
         lights.brightness(parsed_brightness)
         lights.update()
-        await interaction.response.send_message(f"Set brightness to `{brightness}` (`{parsed_brightness}`)")
+        await interaction.response.send_message(f"Set brightness to `{brightness}`")
 
 
 @bot.slash_command(
