@@ -96,9 +96,14 @@ async def slash_command_save(interaction: Interaction, name: str):
 
 @bot.slash_command(name="load", description="Loads a saved light configuration",)
 async def slash_command_load(interaction: Interaction, name: str):
-    lights[:] = [int(x, 16) for x in load_pattern(name)]
-    lights.update()
-    await interaction.response.send_message(f"Loaded light configuration `{name}`")
+    try:
+        pattern = load_pattern(name)
+    except KeyError:
+        await interaction.response.send_message(f"Light configuration `{name}` not found")
+    else:
+        lights[:] = [int(x, 16) for x in pattern]
+        lights.update()
+        await interaction.response.send_message(f"Loaded light configuration `{name}`")
 
 load_dotenv()
 bot.run(os.getenv("BOT_TOKEN"))
