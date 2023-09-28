@@ -94,7 +94,11 @@ async def slash_command_save(interaction: Interaction, name: str):
     lc.save_pattern(name, [hex(x)[2:].zfill(6) for x in lc.lights[:]])
     await interaction.response.send_message(f"Saved current pattern as `{name}`")
 
-@bot.slash_command(name="load", description="Loads a saved pattern",)
+
+@bot.slash_command(
+    name="load",
+    description="Loads a saved pattern",
+)
 async def slash_command_load(interaction: Interaction, name: str):
     try:
         pattern = lc.load_pattern(name)
@@ -104,6 +108,7 @@ async def slash_command_load(interaction: Interaction, name: str):
         lc.lights[:] = [int(x, 16) for x in pattern]
         lc.lights.update()
         await interaction.response.send_message(f"Loaded pattern `{name}`")
+
 
 load_dotenv()
 bot.run(os.getenv("BOT_TOKEN"))
