@@ -88,22 +88,22 @@ async def slash_command_brightness(
 
 @bot.slash_command(
     name="save",
-    description="Saves the current light configuration",
+    description="Saves the current pattern",
 )
 async def slash_command_save(interaction: Interaction, name: str):
     save_pattern(name, [hex(x)[2:].zfill(6) for x in lights[:]])
-    await interaction.response.send_message(f"Saved light configuration as `{name}`")
+    await interaction.response.send_message(f"Saved current pattern as `{name}`")
 
-@bot.slash_command(name="load", description="Loads a saved light configuration",)
+@bot.slash_command(name="load", description="Loads a saved pattern",)
 async def slash_command_load(interaction: Interaction, name: str):
     try:
         pattern = load_pattern(name)
     except KeyError:
-        await interaction.response.send_message(f"Light configuration `{name}` not found")
+        await interaction.response.send_message(f"Pattern `{name}` not found")
     else:
         lights[:] = [int(x, 16) for x in pattern]
         lights.update()
-        await interaction.response.send_message(f"Loaded light configuration `{name}`")
+        await interaction.response.send_message(f"Loaded pattern `{name}`")
 
 load_dotenv()
 bot.run(os.getenv("BOT_TOKEN"))
