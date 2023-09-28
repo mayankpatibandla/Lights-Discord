@@ -87,6 +87,20 @@ async def slash_command_brightness(
 
 
 @bot.slash_command(
+    name="savecolor",
+    description="Saves the specified color",
+)
+async def slash_command_savecolor(interaction: Interaction, name: str, color: str):
+    try:
+        parsed_color = parse_color(color)
+    except ValueError as err:
+        await interaction.response.send_message(str(err))
+    else:
+        lc.save_color(name, str(parsed_color))
+        await interaction.response.send_message(f"Saved color `{name}` as `{color}`")
+
+
+@bot.slash_command(
     name="save",
     description="Saves the current pattern",
 )
