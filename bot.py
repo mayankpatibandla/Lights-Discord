@@ -91,6 +91,7 @@ async def slash_command_brightness(
     description="Saves the specified color",
 )
 async def slash_command_savecolor(interaction: Interaction, name: str, color: str):
+    name = name.lower()
     try:
         parsed_color = parse_color(color)
     except ValueError as err:
@@ -105,6 +106,7 @@ async def slash_command_savecolor(interaction: Interaction, name: str, color: st
     description="Saves the current pattern",
 )
 async def slash_command_save(interaction: Interaction, name: str):
+    name = name.lower()
     lc.save_pattern(name, [format_color(x) for x in lc.lights[:]])
     await interaction.response.send_message(f"Saved current pattern as `{name}`")
 
@@ -114,6 +116,7 @@ async def slash_command_save(interaction: Interaction, name: str):
     description="Loads a saved pattern",
 )
 async def slash_command_load(interaction: Interaction, name: str):
+    name = name.lower()
     try:
         pattern = lc.load_pattern(name)
     except KeyError:
