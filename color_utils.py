@@ -16,8 +16,6 @@ def parse_color(color: str) -> int:
         try:
             return int(color, 0)
         except ValueError:
-            for hex_prefix in ["0x", "#"]:
-                color = color.removeprefix(hex_prefix)
             try:
                 return int(color, 16)
             except ValueError:
