@@ -1,7 +1,7 @@
 import os
 
+import lights_controller as lc
 from dotenv import load_dotenv
-from lights_controller import lights, load_color, load_pattern, save_color, save_pattern
 from nextcord import Intents, Interaction
 from nextcord.ext import commands
 
@@ -29,8 +29,8 @@ async def slash_command_ping(interaction: Interaction):
     description="Turns the lights off",
 )
 async def slash_command_off(interaction: Interaction):
-    lights[:] = 0
-    lights.update()
+    lc.lights[:] = 0
+    lc.lights.update()
     await interaction.response.send_message("Turned the lights off")
 
 
@@ -42,7 +42,7 @@ async def slash_command_set(
     interaction: Interaction,
     color: str,
     start: int = 0,
-    stop: int = len(lights),
+    stop: int = len(lc.lights),
     step: int = 1,
 ):
     try:
@@ -51,13 +51,13 @@ async def slash_command_set(
         await interaction.response.send_message(str(err))
     else:
         try:
-            lights[start:stop:step] = parsed_color
+            lc.lights[start:stop:step] = parsed_color
         except ValueError:
             await interaction.response.send_message(
                 f"`{start}` to `{stop}` with step size `{step}` is an invalid slice"
             )
         else:
-            lights.update()
+            lc.lights.update()
             await interaction.response.send_message(
                 f"Set lights `{start}` to `{stop}` with step size `{step}` to `{color}`"
             )
@@ -81,8 +81,8 @@ async def slash_command_brightness(
     except ValueError:
         await interaction.response.send_message(f"`{brightness}` is an invalid brightness")
     else:
-        lights.brightness(parsed_brightness)
-        lights.update()
+        lc.lights.brightness(parsed_brightness)
+        lc.lights.update()
         await interaction.response.send_message(f"Set brightness to `{brightness}`")
 
 
@@ -91,18 +91,18 @@ async def slash_command_brightness(
     description="Saves the current pattern",
 )
 async def slash_command_save(interaction: Interaction, name: str):
-    save_pattern(name, [hex(x)[2:].zfill(6) for x in lights[:]])
+    lc.save_pattern(name, [hex(x)[2:].zfill(6) for x in lc.lights[:]])
     await interaction.response.send_message(f"Saved current pattern as `{name}`")
 
 @bot.slash_command(name="load", description="Loads a saved pattern",)
 async def slash_command_load(interaction: Interaction, name: str):
     try:
-        pattern = load_pattern(name)
+        pattern = lc.load_pattern(name)
     except KeyError:
         await interaction.response.send_message(f"Pattern `{name}` not found")
     else:
-        lights[:] = [int(x, 16) for x in pattern]
-        lights.update()
+        lc.lights[:] = [int(x, 16) for x in pattern]
+        lc.lights.update()
         await interaction.response.send_message(f"Loaded pattern `{name}`")
 
 load_dotenv()
