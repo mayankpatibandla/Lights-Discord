@@ -130,5 +130,15 @@ async def slash_command_load(interaction: Interaction, name: str):
         await interaction.response.send_message(f"Loaded pattern `{name}`")
 
 
+@bot.slash_command(
+    name="list",
+    description="Lists all saved patterns and colors",
+)
+async def slash_command_list(interaction: Interaction):
+    colors = lc.list_colors()
+    patterns = lc.list_patterns()
+    await interaction.response.send_message(f"Colors: `{', '.join(colors)}`\n\nPatterns: `{', '.join(patterns)}`")
+
+
 load_dotenv()
 bot.run(os.getenv("BOT_TOKEN"))
