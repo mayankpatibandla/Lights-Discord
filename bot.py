@@ -125,7 +125,7 @@ async def slash_command_load(interaction: Interaction, name: str):
     except KeyError:
         await interaction.response.send_message(f"Pattern `{name}` not found")
     else:
-        lc.lights[:] = [int(x, 16) for x in pattern]
+        lc.lights[:] = [parse_color(x) for x in pattern]
         lc.lights.update()
         await interaction.response.send_message(f"Loaded pattern `{name}`")
 
