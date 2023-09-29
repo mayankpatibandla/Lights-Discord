@@ -2,27 +2,35 @@ import atexit
 import os
 
 import lights_controller as lc
+import nextcord
 from dotenv import load_dotenv
-from nextcord import Intents, Interaction
+from nextcord import Interaction
 from nextcord.ext import commands
 
 from color_utils import format_color, parse_color
 
 print("Loading Bot")
-bot = commands.Bot(intents=Intents.default())
+bot = commands.Bot(
+    activity=nextcord.Activity(
+        type=nextcord.ActivityType.watching,
+        name="the lights",
+    ),
+    description="A bot to control the lights",
+    command_prefix="~",
+)
 
 
 @bot.event
 async def on_ready():
-    print("Bot is ready")
     try:
         last_configuration = lc.load_last_configuration()
-    except KeyError:
-        print("No last configuration found")
-    else:
         lc.lights[:] = [parse_color(x) for x in last_configuration["pattern"]]
         lc.lights.brightness(last_configuration["brightness"])
+    except KeyError:
+        lc.lights[:] = 0
+    finally:
         lc.lights.update()
+        print("Bot is ready")
 
 
 @bot.event
