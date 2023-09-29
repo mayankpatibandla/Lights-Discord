@@ -200,7 +200,7 @@ async def slash_command_list(interaction: Interaction):
     description="Prints the current pattern",
 )
 async def slash_command_print(interaction: Interaction):
-    print_str = ', '.join([f'`{i} {format_color(x)}`' for i, x in enumerate(lc.lights[:])])
+    print_str = ', '.join([f'`{str(i).zfill(3)} {format_color(x)}`' for i, x in enumerate(lc.lights[:])])
     embed = nextcord.Embed(title="Current Pattern", color=0x00FF00, description=print_str)
     await interaction.response.send_message(f"Current pattern: {len(print_str)}", embed=embed)
 
