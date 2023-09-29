@@ -92,8 +92,11 @@ async def slash_command_set(
 )
 async def slash_command_brightness(
     interaction: Interaction,
-    brightness: str = "0xFF",
+    brightness: str = "",
 ):
+    if not brightness:
+        await interaction.response.send_message(f"Brightness: `{round(lc.lights.brightness() / 0xFF * 100)}%`")
+        return
     try:
         if "%" in brightness:
             parsed_brightness = int(float(brightness[:-1]) / 100 * 0xFF)
