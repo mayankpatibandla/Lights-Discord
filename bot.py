@@ -16,7 +16,6 @@ bot = commands.Bot(
         name="the lights",
     ),
     description="A bot to control the lights",
-    command_prefix="~",
 )
 
 
