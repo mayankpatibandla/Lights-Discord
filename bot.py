@@ -189,8 +189,9 @@ async def slash_command_load(interaction: Interaction, name: str):
 )
 async def slash_command_list(interaction: Interaction):
     await interaction.response.send_message(
-        f"Colors: {', '.join([f'`{str(x)}`' for x in lc.list_colors()[0]])}\n"
-        + f"Patterns: {', '.join([f'`{str(x)}`' for x in lc.list_patterns()[0]])}"
+        embed=nextcord.Embed(title="Saved Patterns and Colors")
+        .add_field(name="Colors", value=', '.join([f'`{str(x)}`' for x in lc.list_colors()[0]]))
+        .add_field(name="Patterns", value=', '.join([f'`{str(x)}`' for x in lc.list_patterns()[0]]))
     )
 
 
