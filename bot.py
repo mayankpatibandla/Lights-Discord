@@ -12,8 +12,8 @@ from color_utils import format_color, parse_color
 print("Loading Bot")
 bot = commands.Bot(
     activity=nextcord.Activity(
-        type=nextcord.ActivityType.watching,
-        name="the lights",
+        type=nextcord.ActivityType.competing,
+        name="against the lights",
     ),
     description="A bot to control the lights",
 )
