@@ -30,3 +30,7 @@ def parse_color(color: str) -> int:
 
 def format_color(color: int) -> str:
     return hex(color)[2:].zfill(6)
+
+
+def dominant_color(colors: list[int]) -> int:
+    return max(set(colors), key=colors.count)

@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from nextcord import Interaction
 from nextcord.ext import commands
 
-from color_utils import format_color, parse_color
+from color_utils import dominant_color, format_color, parse_color
 
 print("Loading Bot")
 bot = commands.Bot(
@@ -189,7 +189,7 @@ async def slash_command_load(interaction: Interaction, name: str):
 )
 async def slash_command_list(interaction: Interaction):
     await interaction.response.send_message(
-        embed=nextcord.Embed(title="Saved Patterns and Colors")
+        embed=nextcord.Embed(title="Saved Patterns and Colors", color=dominant_color(lc.lights[:]))
         .add_field(name="Colors", value="\n".join([f"`{str(x)}`" for x in lc.list_colors()[0]]))
         .add_field(name="Patterns", value="\n".join([f"`{str(x)}`" for x in lc.list_patterns()[0]]))
     )
