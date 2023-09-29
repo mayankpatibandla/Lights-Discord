@@ -35,7 +35,7 @@ async def on_ready():
 @bot.event
 async def on_close():
     print("Bot is closing")
-    last_configuration = {"pattern": [format_color(x) for x in lc.lights[:]], "brightness": lc.lights.brightness()}
+    last_configuration = {"pattern": [format_color(x) for x in lc.lights], "brightness": lc.lights.brightness()}
     lc.save_last_configuration(last_configuration)
 
 
@@ -150,7 +150,7 @@ async def slash_command_deletecolor(interaction: Interaction, name: str):
 )
 async def slash_command_save(interaction: Interaction, name: str):
     name = name.lower()
-    lc.save_pattern(name, [format_color(x) for x in lc.lights[:]])
+    lc.save_pattern(name, [format_color(x) for x in lc.lights])
     await interaction.response.send_message(f"Saved current pattern as `{name}`")
 
 
