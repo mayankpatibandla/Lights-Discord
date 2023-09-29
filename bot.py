@@ -1,3 +1,4 @@
+import atexit
 import os
 
 import lights_controller as lc
@@ -14,6 +15,21 @@ bot = commands.Bot(intents=Intents.default())
 @bot.event
 async def on_ready():
     print("Bot is ready")
+    try:
+        last_configuration = lc.load_last_configuration()
+    except KeyError:
+        print("No last configuration found")
+    else:
+        lc.lights[:] = [parse_color(x) for x in last_configuration["pattern"]]
+        lc.lights.brightness(last_configuration["brightness"])
+        lc.lights.update()
+
+
+@bot.event
+async def on_close():
+    print("Bot is closing")
+    last_configuration = {"pattern": [format_color(x) for x in lc.lights[:]], "brightness": lc.lights.brightness()}
+    lc.save_last_configuration(last_configuration)
 
 
 @bot.slash_command(
@@ -170,3 +186,5 @@ async def slash_command_list(interaction: Interaction):
 
 load_dotenv()
 bot.run(os.getenv("BOT_TOKEN"))
+
+atexit.register(on_close)
