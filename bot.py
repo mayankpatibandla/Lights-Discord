@@ -35,8 +35,7 @@ async def on_ready():
 @bot.event
 async def on_close():
     print("Bot is closing")
-    last_configuration = {"pattern": [format_color(x) for x in lc.lights], "brightness": lc.lights.brightness()}
-    lc.save_last_configuration(last_configuration)
+    lc.save_last_configuration({"pattern": [format_color(x) for x in lc.lights], "brightness": lc.lights.brightness()})
 
 
 @bot.slash_command(
