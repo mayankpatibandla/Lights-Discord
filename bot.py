@@ -195,6 +195,16 @@ async def slash_command_list(interaction: Interaction):
     )
 
 
+@bot.slash_command(
+    name="print",
+    description="Prints the current pattern",
+)
+async def slash_command_print(interaction: Interaction):
+    await interaction.response.send_message(
+        f"Current pattern: {', '.join([f'`{i}: {format_color(x)}`' for i, x in enumerate(lc.lights[:])])}"
+    )
+
+
 load_dotenv()
 bot.run(os.getenv("BOT_TOKEN"))
 
