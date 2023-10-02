@@ -42,7 +42,9 @@ async def on_close():
     name="ping",
     description="Replies with the bot's ping to the server",
 )
-async def slash_command_ping(interaction: Interaction):
+async def slash_command_ping(
+    interaction: Interaction,
+):
     await interaction.response.send_message(f"Ping: `{round(bot.latency * 1000)} ms`")
 
 
@@ -50,7 +52,9 @@ async def slash_command_ping(interaction: Interaction):
     name="off",
     description="Turns the lights off",
 )
-async def slash_command_off(interaction: Interaction):
+async def slash_command_off(
+    interaction: Interaction,
+):
     lc.lights[:] = 0
     lc.lights.update()
     await interaction.response.send_message("Turned the lights off")
@@ -118,7 +122,11 @@ async def slash_command_brightness(
     name="savecolor",
     description="Saves the specified color",
 )
-async def slash_command_savecolor(interaction: Interaction, name: str, color: str):
+async def slash_command_savecolor(
+    interaction: Interaction,
+    name: str,
+    color: str = format_color(dominant_color(lc.lights[:])),
+):
     name = name.lower()
     try:
         parsed_color = parse_color(color)
@@ -133,7 +141,10 @@ async def slash_command_savecolor(interaction: Interaction, name: str, color: st
     name="deletecolor",
     description="Deletes the specified color",
 )
-async def slash_command_deletecolor(interaction: Interaction, name: str):
+async def slash_command_deletecolor(
+    interaction: Interaction,
+    name: str,
+):
     name = name.lower()
     try:
         lc.delete_color(name)
@@ -147,7 +158,10 @@ async def slash_command_deletecolor(interaction: Interaction, name: str):
     name="save",
     description="Saves the current pattern",
 )
-async def slash_command_save(interaction: Interaction, name: str):
+async def slash_command_save(
+    interaction: Interaction,
+    name: str,
+):
     name = name.lower()
     lc.save_pattern(name, [format_color(x) for x in lc.lights])
     await interaction.response.send_message(f"Saved current pattern as `{name}`")
@@ -157,7 +171,10 @@ async def slash_command_save(interaction: Interaction, name: str):
     name="delete",
     description="Deletes the specified pattern",
 )
-async def slash_command_delete(interaction: Interaction, name: str):
+async def slash_command_delete(
+    interaction: Interaction,
+    name: str,
+):
     name = name.lower()
     try:
         lc.delete_pattern(name)
@@ -171,7 +188,10 @@ async def slash_command_delete(interaction: Interaction, name: str):
     name="load",
     description="Loads a saved pattern",
 )
-async def slash_command_load(interaction: Interaction, name: str):
+async def slash_command_load(
+    interaction: Interaction,
+    name: str,
+):
     name = name.lower()
     try:
         pattern = lc.load_pattern(name)
@@ -187,7 +207,9 @@ async def slash_command_load(interaction: Interaction, name: str):
     name="list",
     description="Lists all saved patterns and colors",
 )
-async def slash_command_list(interaction: Interaction):
+async def slash_command_list(
+    interaction: Interaction,
+):
     await interaction.response.send_message(
         embed=nextcord.Embed(title="Saved Patterns and Colors", color=dominant_color(lc.lights[:]))
         .add_field(name="Colors", value="\n".join([f"`{str(x)}`" for x in lc.list_colors()[0]]))
