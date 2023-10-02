@@ -1,5 +1,6 @@
 import atexit
 import os
+from xml import dom
 
 import lights_controller as lc
 import nextcord
@@ -127,6 +128,7 @@ async def slash_command_savecolor(
     name: str,
     color: str = format_color(dominant_color(lc.lights[:])),
 ):
+    print(color, dominant_color(lc.lights[:]))
     name = name.lower()
     try:
         parsed_color = parse_color(color)
