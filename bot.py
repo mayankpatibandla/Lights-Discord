@@ -195,6 +195,24 @@ async def slash_command_list(interaction: Interaction):
     )
 
 
+@bot.slash_command(
+    name="flash",
+    description="Flashes the lights",
+)
+async def slash_command_flash(
+    interaction: Interaction,
+    color: str,
+    duration: float = 0.5,
+):
+    try:
+        parsed_color = parse_color(color)
+    except ValueError as err:
+        await interaction.response.send_message(str(err))
+    else:
+        lc.lights.animator.flash(parsed_color, duration)
+        await interaction.response.send_message(f"Flashed lights `{color}` for `{duration}` seconds")
+
+
 load_dotenv()
 bot.run(os.getenv("BOT_TOKEN"))
 
