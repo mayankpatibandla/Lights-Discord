@@ -126,10 +126,11 @@ async def slash_command_brightness(
 async def slash_command_savecolor(
     interaction: Interaction,
     name: str,
-    color: str = format_color(dominant_color(lc.lights[:])),
+    color: str = "",
 ):
-    print(color, dominant_color(lc.lights[:]))
     name = name.lower()
+    if not color:
+        color = format_color(dominant_color(lc.lights[:]))
     try:
         parsed_color = parse_color(color)
     except ValueError as err:
