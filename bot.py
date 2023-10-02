@@ -236,6 +236,23 @@ async def slash_command_flash(
         await message.edit(content=f"Flashed lights `{color}` for `{duration}` seconds")
 
 
+@bot.slash_command(name="flashpattern", description="Flashes the lights with the specified pattern")
+async def slash_command_flashpattern(
+    interaction: Interaction,
+    name: str,
+    duration: float = 0.5,
+):
+    name = name.lower()
+    try:
+        pattern = [parse_color(x) for x in lc.load_pattern(name)]
+    except KeyError:
+        await interaction.response.send_message(f"Pattern `{name}` not found")
+    else:
+        message = await interaction.response.send_message(f"Flashing lights `{name}` for `{duration}` seconds")
+        await lc.lights.animator.flash(pattern, duration)
+        await message.edit(content=f"Flashed lights `{name}` for `{duration}` seconds")
+
+
 load_dotenv()
 bot.run(os.getenv("BOT_TOKEN"))
 
