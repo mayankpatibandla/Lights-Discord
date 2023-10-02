@@ -231,8 +231,9 @@ async def slash_command_flash(
     except ValueError as err:
         await interaction.response.send_message(str(err))
     else:
+        message = await interaction.response.send_message(f"Flashing lights `{color}` for `{duration}` seconds")
         await lc.lights.animator.flash(parsed_color, duration)
-        await interaction.response.send_message(f"Flashed lights `{color}` for `{duration}` seconds")
+        await message.edit(content=f"Flashed lights `{color}` for `{duration}` seconds")
 
 
 load_dotenv()
