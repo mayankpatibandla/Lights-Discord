@@ -1,6 +1,5 @@
 import atexit
 import os
-from xml import dom
 
 import lights_controller as lc
 import nextcord
