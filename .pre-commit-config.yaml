@@ -3,8 +3,12 @@ repos:
     rev: 23.9.1
     hooks:
       - id: black
-  - repo: https://github.com/pylint-dev/pylint
-    rev: v3.0.1
+        args: ["--skip-string-normalization", "--line-length=120"]
+  - repo: local
     hooks:
-      - id: pylint
+      - id: system
+        name: pylint
+        entry: python -m pylint.__main__
+        language: system
+        files: \.py$
         args: [--rcfile=.pylintrc]
