@@ -95,7 +95,7 @@ async def slash_command_set(
 )
 async def slash_command_brightness(
     interaction: Interaction,
-    brightness: str = "",
+    brightness: str | None = None,
 ):
     if not brightness:
         await interaction.response.send_message(f"Brightness: `{round(lc.lights.brightness() / 0xFF * 100)}%`")
@@ -125,7 +125,7 @@ async def slash_command_brightness(
 async def slash_command_savecolor(
     interaction: Interaction,
     name: str,
-    color: str = "",
+    color: str | None = None,
 ):
     name = name.lower()
     if not color:
@@ -225,8 +225,8 @@ async def slash_command_list(
 )
 async def slash_command_flash(
     interaction: Interaction,
-    color: str = None,  # TODO: add None for other commands, use 3.12 features when upgraded
-    name: str = None,
+    color: str | None = None,
+    name: str | None = None,
     duration: float = 0.5,
 ):
     if color is not None:
