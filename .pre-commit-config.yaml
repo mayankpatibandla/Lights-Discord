@@ -24,9 +24,9 @@ repos:
         args: ["--skip-string-normalization", "--line-length=120"]
   - repo: local
     hooks:
-      - id: system
+      - id: pylint
         name: pylint
-        entry: python -m pylint.__main__
+        entry: pylint
         language: system
-        files: \.py$
+        types: [python]
         args: [--rcfile=.pylintrc]
