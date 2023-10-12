@@ -1,3 +1,5 @@
+ci:
+  skip: [pylint]
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
@@ -17,6 +19,7 @@ repos:
       - id: check-ast
       - id: check-builtin-literals
       - id: trailing-whitespace
+      - id: requirements-txt-fixer
   - repo: https://github.com/psf/black
     rev: 23.9.1
     hooks:
@@ -24,9 +27,30 @@ repos:
         args: ["--skip-string-normalization", "--line-length=120"]
   - repo: local
     hooks:
-      - id: system
+      - id: pylint
         name: pylint
-        entry: python -m pylint.__main__
+        entry: python -m pylint
         language: system
-        files: \.py$
+        types: [python]
         args: [--rcfile=.pylintrc]
+  - repo: https://github.com/pycqa/flake8
+    rev: "6.1.0"
+    hooks:
+      - id: flake8
+        types: [python]
+        args: [--config=.flake8]
+  - repo: https://github.com/pycqa/isort
+    rev: "5.12.0"
+    hooks:
+      - id: isort
+        name: isort (python)
+        types: [python]
+        args: [--settings-file=.isort.cfg]
+      - id: isort
+        name: isort (cython)
+        types: [cython]
+        args: [--settings-file=.isort.cfg]
+      - id: isort
+        name: isort (pyi)
+        types: [pyi]
+        args: [--settings-file=.isort.cfg]
