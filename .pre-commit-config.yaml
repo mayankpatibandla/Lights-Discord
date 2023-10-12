@@ -45,9 +45,12 @@ repos:
       - id: isort
         name: isort (python)
         types: [python]
+        args: [--settings-file=.isort.cfg]
       - id: isort
         name: isort (cython)
         types: [cython]
+        args: [--settings-file=.isort.cfg]
       - id: isort
         name: isort (pyi)
         types: [pyi]
+        args: [--settings-file=.isort.cfg]
