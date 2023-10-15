@@ -1,4 +1,5 @@
 -e git+https://github.com/mayankpatibandla/Lights-Controller.git#egg=lights_controller
+aiohttp --pre
 nextcord
 python-dotenv
 webcolors
