@@ -1,7 +1,7 @@
 import json
 
-import lights_controller as lc
 import webcolors
+from lights_controller import load_color
 
 with open("colors.json", encoding="utf-8") as f:
     colors_data = json.load(f)
@@ -11,7 +11,7 @@ def parse_color(color: str) -> int:
     color = color.lower()
 
     try:
-        return int(lc.load_color(color), 16)
+        return int(load_color(color), 16)
     except KeyError:
         try:
             return int(color, 0)
