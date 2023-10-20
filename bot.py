@@ -35,7 +35,7 @@ async def on_ready():
 @bot.event
 async def on_close():
     print("Bot is closing")
-    lc.save_last_configuration({"pattern": [format_color(x) for x in lc.lights], "brightness": lc.lights.brightness()})
+    lc.save_last_configuration([format_color(x) for x in lc.lights], lc.lights.brightness())
 
 
 @bot.slash_command(
@@ -165,7 +165,7 @@ async def slash_command_save(
     name: str,
 ):
     name = name.lower()
-    lc.save_pattern(name, [format_color(x) for x in lc.lights])
+    lc.save_pattern(name, [format_color(x) for x in lc.lights], lc.lights.brightness())
     await interaction.response.send_message(f"Saved current pattern as `{name}`")
 
 
