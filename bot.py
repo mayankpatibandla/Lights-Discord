@@ -228,6 +228,7 @@ async def slash_command_flash(
     interaction: Interaction,
     color: str | None = None,
     name: str | None = None,
+    brightness: int | None = None,
     duration: float = 0.5,
 ):
     if color is not None:
@@ -237,17 +238,21 @@ async def slash_command_flash(
             await interaction.response.send_message(str(err))
         else:
             message = await interaction.response.send_message(f"Flashing lights `{color}` for `{duration}` seconds")
-            await lc.lights.animator.flash(parsed_color, duration)
+            if brightness is None:
+                brightness = lc.lights.brightness()
+            await lc.lights.animator.flash(parsed_color, brightness, duration)
             await message.edit(content=f"Flashed lights `{color}` for `{duration}` seconds")
     elif name is not None:
         name = name.lower()
         try:
-            pattern = [parse_color(x) for x in lc.load_pattern(name)]
+            pattern = lc.load_pattern(name)
         except KeyError:
             await interaction.response.send_message(f"Pattern `{name}` not found")
         else:
             message = await interaction.response.send_message(f"Flashing lights `{name}` for `{duration}` seconds")
-            await lc.lights.animator.flash(pattern, duration)
+            if brightness is None:
+                brightness = int(pattern["brightness"])
+            await lc.lights.animator.flash([parse_color(x) for x in pattern["colors"]], brightness, duration)
             await message.edit(content=f"Flashed lights `{name}` for `{duration}` seconds")
     else:
         await interaction.response.send_message("Please provide either a color or a pattern name")
