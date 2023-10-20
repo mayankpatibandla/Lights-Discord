@@ -23,7 +23,7 @@ bot = commands.Bot(
 async def on_ready():
     try:
         last_configuration = lc.load_last_configuration()
-        lc.lights[:] = [parse_color(x) for x in last_configuration["pattern"]]
+        lc.lights[:] = [parse_color(x) for x in last_configuration["colors"]]
         lc.lights.brightness(last_configuration["brightness"])
     except KeyError:
         lc.lights[:] = 0
@@ -200,7 +200,8 @@ async def slash_command_load(
     except KeyError:
         await interaction.response.send_message(f"Pattern `{name}` not found")
     else:
-        lc.lights[:] = [parse_color(x) for x in pattern]
+        lc.lights[:] = [parse_color(x) for x in pattern["colors"]]
+        lc.lights.brightness(pattern["brightness"])
         lc.lights.update()
         await interaction.response.send_message(f"Loaded pattern `{name}`")
 
