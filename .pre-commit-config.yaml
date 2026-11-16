@@ -40,7 +40,7 @@ repos:
         types: [python]
         args: [--config=.flake8]
   - repo: https://github.com/pycqa/isort
-    rev: "10.0.0b2"
+    rev: "10.0.0b3"
     hooks:
       - id: isort
         name: isort (python)
